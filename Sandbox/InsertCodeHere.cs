@@ -10,18 +10,40 @@ namespace Sandbox
 
             // Create a new bank account with 25 % interest rate
             // (is that legal...?)
-            BankAccount theAccount = new BankAccount(25.0);
+            BankAccount theAccount = null;
 
-            theAccount.Deposit(2000);
+            try
+            {
+                // Change to 25.0 to provoke an exception
+                theAccount = new BankAccount(15.0);
+            }
+            catch (IllegalInterestRateException)
+            {
+                Console.WriteLine("Illegal interest rate, must be between 0.0 and 20.0");
+                return;
+            }
 
-
-            // Should this be legal...?
-            theAccount.Deposit(-1000);
+            try
+            {
+                // Change to -2000 to provoke an exception
+                theAccount.Deposit(2000);
+            }
+            catch (NegativeAmountException)
+            {
+                Console.WriteLine("Illegal amount, must be positive");
+                return;
+            }
 
             // Try to withdraw...
             try
             {
-                theAccount.Withdraw(3000);
+                // Change to 3000 or -1000 to provoke an exception
+                theAccount.Withdraw(1000);
+            }
+            catch (NegativeAmountException)
+            {
+                Console.WriteLine("Illegal amount, must be positive");
+                return;
             }
             catch (WithdrawAmountTooLargeException)
             {
