@@ -18,11 +18,19 @@ namespace Sandbox
         {
             this.interestRate = interestRate;
             this.balance = 0.0;
+            if (interestRate < 0 || interestRate > 20)
+            {
+                throw new IllegalInterestRateException();
+            }
         }
 
         public void Deposit(double amount)
         {
             balance = balance + amount;
+            if (amount <= 0)
+            {
+                throw new NegativeAmountException();
+            }
         }
 
         public void Withdraw(double amount)
